@@ -1,0 +1,174 @@
+<script>
+	"use strict"
+	function main()
+	{
+		function write(a)
+		{
+			document.write(a)
+		}
+		function reverse_n(n)
+		{
+			//function to reverse a number
+			let number
+			let rem
+			let reverse_number = ""
+			number = n
+			while (number != 0)
+			{
+				rem = number%10
+				number = Math.floor(number/10)
+				reverse_number = reverse_number + rem.toString()	
+				
+			}
+			return(reverse_number)
+		}
+
+		function is_palindrome(n)
+		{
+			//function to check if n is palindrome
+			if(n == reverse_n(n))
+			{
+				return true
+			}
+			else
+			{
+				return false
+			}
+		}
+
+		function is_28(n)
+		{
+			//check if the number is 28
+			let a
+			let i
+			let total = 0
+			a = n.toString().split("").map(Number)
+			//write(a)
+			for(i=0;i<a.length;i++)
+			{
+				total = total + a[i] 
+			}
+			//write(total)
+			if(total == 28)
+			{
+				return true
+			}
+			else
+			{
+				return false
+			}
+		}
+		
+		function part_1(low_n,high_n)
+		{
+			let low = low_n
+			let low2 = low_n
+			let high = high_n
+			let ans
+			let highest = 0
+			let first_d
+			let second_d
+
+			for (low;low<high;low++)
+			{
+				for(low2=low_n;low2<high;low2++)
+				{
+				 	ans = low*low2
+					if (ans<highest)
+					{
+						continue
+					}	
+					if(is_palindrome(ans))
+					{
+						highest = ans
+						first_d = low
+						second_d = low2
+					}
+				}
+				
+			}
+			
+			write(first_d)
+			write("*")
+			write(second_d)
+			write("=")
+			write(highest)
+		}
+
+		
+		function part2(low_n,high_n)
+		{
+			let low = low_n
+			let low2 = low_n
+			let high = high_n
+			let ans
+			let highest = 0
+			let first_d
+			let second_d
+
+			for (low;low<high;low++)
+			{
+				for(low2=low_n;low2<high;low2++)
+				{
+				 	ans = low*low2
+					if (ans<highest)
+					{
+						continue
+					}	
+					if(is_palindrome(ans))
+					{
+						if(!is_28(ans))
+						{
+							continue
+						}
+						else
+						{
+							highest = ans
+							first_d = low
+							second_d = low2
+						}
+					}
+				}
+				
+			}
+			write(first_d)
+			write("*")
+			write(second_d)
+			write("=")
+			write(highest)
+			
+		}
+
+		
+		function run_it()
+		{
+			var start
+			var end
+
+			write("part1 <br>")
+			start = new Date().getTime()
+			part_1(9000,10000)
+			//can enter 1000 to 10000
+			end = new Date().getTime()
+			write("<br>")
+			write(end-start)
+			write("ms")
+			write("<br> <br>")
+
+			write("part2 <br>")
+			start = new Date().getTime()
+			part2(8500,9500)
+			end = new Date().getTime()
+			write("<br>")
+			write(end-start)
+			write("ms")
+		}
+
+		
+		run_it()
+		
+	}
+	
+
+	main()
+</script>
