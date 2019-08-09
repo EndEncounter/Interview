@@ -2,17 +2,14 @@
 	"use strict"
 	function main()
 	{
-		function write(a)
-		{
-			document.write(a)
-		}
-		function reverse_n(n)
+
+		function reverse_number(num)
 		{
 			//function to reverse a number
 			let number
 			let rem
 			let reverse_number = ""
-			number = n
+			number = num
 			while (number != 0)
 			{
 				rem = number%10
@@ -23,10 +20,10 @@
 			return(reverse_number)
 		}
 
-		function is_palindrome(n)
+		function is_palindrome(num)
 		{
-			//function to check if n is palindrome
-			if(n == reverse_n(n))
+			//check if n is palindrome
+			if(num == reverse_number(num))
 			{
 				return true
 			}
@@ -36,19 +33,18 @@
 			}
 		}
 
-		function is_28(n)
+		function is_28(num)
 		{
 			//check if the number is 28
 			let a
 			let i
 			let total = 0
-			a = n.toString().split("").map(Number)
-			//write(a)
+			a = num.toString().split("").map(Number)
+
 			for(i=0;i<a.length;i++)
 			{
 				total = total + a[i] 
 			}
-			//write(total)
 			if(total == 28)
 			{
 				return true
@@ -59,62 +55,51 @@
 			}
 		}
 		
-		function part_1(low_n,high_n)
+		function part1(start_number,end_number)
 		{
-			let low = low_n
-			let low2 = low_n
-			let high = high_n
-			let ans
-			let highest = 0
-			let first_d
-			let second_d
-
-			for (low;low<high;low++)
-			{
-				for(low2=low_n;low2<high;low2++)
-				{
-				 	ans = low*low2
-					if (ans<highest)
-					{
-						continue
-					}	
-					if(is_palindrome(ans))
-					{
-						highest = ans
-						first_d = low
-						second_d = low2
-					}
-				}
-				
-			}
+			let i 			
+			let j
+			let ans = 0		
 			
-			write(first_d)
-			write("*")
-			write(second_d)
-			write("=")
-			write(highest)
+			stop:
+			for(i = start_number;i>=end_number;i--)
+			{
+				for(j = start_number;j>=end_number;j--)
+				{
+					ans = i * j
+					if(is_palindrome(ans) && ans != 0)
+					{
+						document.write(i+" * "+j+" = "+ans)
+						break stop
+					}
+					
+				}
+			}
 		}
 
 		
-		function part2(low_n,high_n)
+		function part2(start_number,end_number)
 		{
-			let low = low_n
-			let low2 = low_n
-			let high = high_n
+			let i
+			let j
 			let ans
-			let highest = 0
-			let first_d
-			let second_d
-
-			for (low;low<high;low++)
+			let highest =0
+			let a
+			let b
+			stop:
+			for(i=start_number;i>=end_number;i--)
 			{
-				for(low2=low_n;low2<high;low2++)
+				for(j=i;j>=end_number;j--)
 				{
-				 	ans = low*low2
-					if (ans<highest)
+					ans = i*j
+					if (ans%10==0)
 					{
 						continue
-					}	
+					}
+					if(ans<highest)
+					{
+						continue
+					}
 					if(is_palindrome(ans))
 					{
 						if(!is_28(ans))
@@ -123,45 +108,38 @@
 						}
 						else
 						{
-							highest = ans
-							first_d = low
-							second_d = low2
+							highest=ans
+							a = i
+							b = j
 						}
 					}
+					
 				}
-				
+					
 			}
-			write(first_d)
-			write("*")
-			write(second_d)
-			write("=")
-			write(highest)
-			
+			document.write(a+" * "+b+" = "+highest)
 		}
 
-		
 		function run_it()
 		{
-			var start
-			var end
+			let start
+			let end
+			let time
 
-			write("part1 <br>")
+			document.write("Part1 <br>")
 			start = new Date().getTime()
-			part_1(9000,10000)
-			//can enter 1000 to 10000
+			part1(9999,1000)
 			end = new Date().getTime()
-			write("<br>")
-			write(end-start)
-			write("ms")
-			write("<br> <br>")
+			time = end - start			
+			document.write("<br>"+time+"ms"+"<br> <br>")
+			
 
-			write("part2 <br>")
+			document.write("Part2 <br>")
 			start = new Date().getTime()
-			part2(8500,9500)
+			part2(9999,1000)
 			end = new Date().getTime()
-			write("<br>")
-			write(end-start)
-			write("ms")
+			time = end - start
+			document.write("<br>"+time+"ms")
 		}
 
 		
